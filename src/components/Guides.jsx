@@ -3,26 +3,32 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
-    href: '/authentication',
-    name: 'Authentication',
-    description: 'Learn how to authenticate your API requests.',
+    href: '/fortraders',
+    name: 'Traders',
+    description: 'Learn how to trade your own accounts using signals from Trade Signal Server.',
   },
   {
-    href: '/pagination',
-    name: 'Pagination',
-    description: 'Understand how to work with paginated responses.',
+    href: '/forsignalcreators',
+    name: 'Signal Creators',
+    description: 'Understand how to create signals.',
   },
   {
-    href: '/errors',
-    name: 'Errors',
+    href: '/forstrategists',
+    name: 'Strategists',
     description:
-      'Read about the different types of errors returned by the API.',
+      'Learn how to trade like a boss.',
   },
   {
-    href: '/webhooks',
-    name: 'Webhooks',
+    href: '/fortraderoomleaders',
+    name: 'Trade Room Leaders',
     description:
-      'Learn how to programmatically configure webhooks for your app.',
+      'Magically lift your trade room results and cut traders\' work by magnitudes.',
+  },
+  {
+    href: '/forinvestors',
+    name: 'Investors',
+    description:
+      'Get your own features implemented.',
   },
 ]
 

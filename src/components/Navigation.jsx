@@ -188,16 +188,16 @@ export const navigation = [
     title: 'Guides',
     links: [
       { title: 'Introduction', href: '/' },
-      { title: 'Quickstart', href: '/quickstart' },
-      { title: 'SDKs', href: '/sdks' },
-      { title: 'Authentication', href: '/authentication' },
-      { title: 'Pagination', href: '/pagination' },
-      { title: 'Errors', href: '/errors' },
-      { title: 'Webhooks', href: '/webhooks' },
+      { title: 'For Traders', href: '/fortraders' },
+      { title: 'For Signal Creators', href: '/forsignalcreators' },
+      { title: 'For Strategists', href: '/forstrategists' },
+      { title: 'For Trade Room Leaders', href: '/fortraderoomleaders' },
+      { title: 'For Programmers', href: '/forprogrammers' },
+      { title: 'For Investors', href: '/forinvestors' },
     ],
   },
   {
-    title: 'Resources',
+    title: 'API',
     links: [
       { title: 'Contacts', href: '/contacts' },
       { title: 'Conversations', href: '/conversations' },

@@ -24,9 +24,9 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         {router.pathname === '/' ? (
-          <title>Protocol API Reference</title>
+          <title>Trade Signal Server</title>
         ) : (
-          <title>{`${pageProps.title} - Protocol API Reference`}</title>
+          <title>{`${pageProps.title} - Trade Signal Server`}</title>
         )}
         <meta name="description" content={pageProps.description} />
       </Head>
