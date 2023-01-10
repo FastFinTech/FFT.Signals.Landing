@@ -3,109 +3,53 @@ export const description =
 
 # For Traders
 
+Trading profitably is hard. Even if you’ve made it far enough to consistently profit, it takes massive daily chunks of time and effort out of your life to ensure you are always there when the market moves, entering your orders correctly into the system, and reviewing your performance.
+
+Let our automated systems do the hard work for you. The `Trade Signal Server` streams profitable signals right into your trading platform or your phone, allowing you to simply accept or reject each signal as it is completely managed for you in your account. You can focus your time doing what matters to you whilst reviewing notifications and having full control of the professional order management occurring in your account.
+
+Do you trust the professional traders creating the signals? Then, with a single click on your phone, allow all the signals to be executed, relax and enjoy the results. 
+
+Do you feel bullish on EURUSD? Then use your phone to remotely tune your filter to accept only buy signals on EURUSD. When you feel the trend is over, turn it off or switch on sells as well. 
+
+Are you unsure which instruments are moving right now? Check out the `heatmap` to see where the market action is taking place. You might be trading currencies one moment, and switch over to crypto when the `heatmap` tells you trends are starting there.
+
+`Trade Signal Server` works with all instrument types including the most modern recent instruments such as crypto.
+
+With the signals and their execution taken care of by the automated system, you become the chief strategist of your trading operation. Take a step back from order entry. You watch the market and decide which instruments, signal types, and trading directions you should employ at the present time. Like a boss, you set your strategy and allow the `Trade Signal Server` to execute it for you, all on autopilot.
+
+Every signal arrives on your phone or trading platform with a complete description and supporting charts. You can accept or reject the signal individually. You can modify any characteristic of any signal at any time, or immediately close it out at any time.
+
+Would you like to share your trades, or have them duplicated in multiple accounts of your own? `Trade Signal Server` can read the orders you place in your trading platform, creating signals to send to your duplicate accounts and any followers you may have, if you choose to enable that. If you write code, you can use our api to send automated signals as well.
+
+Are you worried about slippage caused by using market orders in your account? `Trade Signal Server` only uses the same Limit and Stop Limit orders as the original signal creator, and it skillfully handles all the edge-cases that may happen in your account like missed fills, partial fills, and order rejection, keeping you informed and ready to respond at all times.
+
+
+## Signal following
+
+|Feature|Method|
+|---|----|
+|Choose which strategies to accept|Adjust signal filter on phone
+|Choose which instruments to accept|Adjust signal filter on phone<br/>*Strategy --> Instrument list*|
+|Choose which direction to accept (Buy or sell)|Adjust signal filter on phone<br/>*Strategy --> Instrument list --> Directions*|
+|Instantly accept signals automatically|Adjust signal filter on phone<br/>*Strategy --> Instrument list --> Direction --> Instant accept (on)*|
+|Review signals before accepting|Adjust signal filter on phone<br/>*Strategy --> Instrument list --> Direction --> Instant accept (off)*<br/>*Click notification to accept or reject the signal*|
+|Modify signal before accepting|Click notification and edit the signal<br/>&#10003; *When instant accept is turned off*|
+|Reject signal after accepting|Click notification and cancel the signal<br/>*&#10003; Any time before the entry order fills*|
+|Choose trade size|Click notification and set the trade size, up to the maximum size allowed by the signal creator.<br/>&#10003; *Any time before the entry order fills.*<br/>&#10003; *Set default trade size in your settings*|
+|Follow order updates|Default behaviour.<br/>Changes to the signal's orders are automatically updated in your account, until the order is filled or canceled.<br/>&#10003; *Follow entry order changes*<br/>&#10003; *Follow stop loss order changes (including trailing stop)*<br/>&#10003; *Follow target order changes*|
+|Override orders|Click the notification and override any order, cancelling it or modifying it.<br/>Overriding an order prevents the signal from updating it.<br/>&#10003; *Override all orders*<br/>&#10003; *Override entry order individually*<br/>&#10003; *Override stop loss order individually*<br/>&#10003; *Override target order individually*<br/>&#10003; *Cancel all orders or any individual order*|
+|Re-follow order updates|Overridden orders can be "reconnected" to the signal's orders, and resume following updates to the orders.|
+|Handle partial fills|&#10003; You are notified if any order has partially filled.<br/>&#10003; *Stop loss and target orders are adjusted according to the amount filled by the entry order.*<br/>&#10003; *Partial fill of a target order will reduce the stop loss order size and vice versa.*<br/>&#10003; *Fill of a target order or stop loss order will cancel the remainder of a partially-filled entry order.*|
+
+
+
+--------------
+
+This is a tool for active traders who want to improve their earnings while reducing trading day workload and get away from their computer screens to spend their time making life meaningful.
+
 ## Copy your trades into multiple accounts
 
 This is particularly useful if you trade multiple accounts simultaneously. Add multiple funded accounts.
 
 Trade Signal Server was built by a veteran trader to solve 20 years of frustration with inadequate signal services and to create a way to get away from staring at the computer screen all day. {{ className: 'lead' }}
 
-<Note>
-  Before you can make requests to the Protocol API, you will need to grab your
-  API key from your dashboard. You find it under [Settings &raquo; API](#).
-</Note>
-
-## Choose your client
-
-Before making your first API request, you need to pick which API client you will use. In addition to good ol' cURL HTTP requests, Protocol offers clients for JavaScript, Python, and PHP. In the following example, you can see how to install each client.
-
-<CodeGroup>
-
-```bash {{ title: 'cURL' }}
-# cURL is most likely already installed on your machine
-curl --version
-```
-
-```bash {{ language: 'js' }}
-# Install the Protocol JavaScript SDK
-npm install @example/protocol-api --save
-```
-
-```bash {{ language: 'python' }}
-# Install the Protocol Python SDK
-pip install protocol_api
-```
-
-```bash {{ language: 'php' }}
-# Install the Protocol PHP SDK
-composer require protocol/sdk
-```
-
-```csharp {{ language: 'csharp' }}
-// This should be good c#
-public class Hello {
-  public string H1 { get; } => "good one";
-}
-```
-</CodeGroup>
-
-<div className="not-prose">
-  <Button
-    href="/sdks"
-    variant="text"
-    arrow="right"
-    children="Check out our list of first-party SDKs"
-  />
-</div>
-
-## Making your first API request
-
-After picking your preferred client, you are ready to make your first call to the Protocol API. Below, you can see how to send a GET request to the Conversations endpoint to get a list of all your conversations. In the cURL example, results are limited to ten conversations, the default page length for each client.
-
-<CodeGroup tag="GET" label="/v1/conversations">
-
-```bash {{ title: 'cURL' }}
-curl -G https://api.protocol.chat/v1/conversations \
-  -H "Authorization: Bearer {token}" \
-  -d limit=10
-```
-
-```js
-import ApiClient from '@example/protocol-api'
-
-const client = new ApiClient(token)
-
-await client.conversations.list()
-```
-
-```python
-from protocol_api import ApiClient
-
-client = ApiClient(token)
-
-client.conversations.list()
-```
-
-```php
-$client = new \Protocol\ApiClient($token);
-
-$client->conversations->list();
-```
-
-</CodeGroup>
-
-<div className="not-prose">
-  <Button
-    href="/conversations"
-    variant="text"
-    arrow="right"
-    children="Read the docs for the Conversations endpoint"
-  />
-</div>
-
-## What's next?
-
-Great, you're now set up with an API client and have made your first request to the API. Here are a few links that might be handy as you venture further into the Protocol API:
-
-- [Grab your API key from the Protocol dashboard](#)
-- [Check out the Conversations endpoint](/conversations)
-- [Learn about the different error messages in Protocol](/errors)

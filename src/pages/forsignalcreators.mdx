@@ -3,72 +3,26 @@ export const description =
 
 # Signal Creators
 
-**Blurb about system using limit orders instead of market orders
+Other signal-copying services place market orders in your follower's accounts ... because it's HARD to intelligently handle all the edge cases and what-ifs (such as rejected orders and partial fills) that popup when following a signal using limit orders. As you probably already know, all of their systems experience degraded performance due to the slippage of market orders. Originally-profitable systems can become disappointing losers in your follower's accounts when you use other signal-copying services.
 
-** Can edit order details before the order is filled. Entry/SL/TP. *
+`Trade Signal Server` has done the hard work of figuring out how to intelligently handle the intrinsics of following your signals with limit orders, keeping your followers just as profitable as you. 
 
-** Communicate with followers via "diary entries".
+## Feature list
 
-## From your trading platform
+|Feature|Method|
+|---|---|
+|Create signals from your own trading activity|Add our plugin to your trading platform and it will convert your usual trading activity into signals.|
+|Create signals from your indicators|Add our plugin to your trading platform and it will convert your indicator outputs into trading signals.|
+|Create signals from our website or app|Use our trading platform website and app to generate signals from your phone or computer.|
+|Automate signal generation with a robot|Write your own software to send signals to the *Trade Signal Server* api.|
+|Communicate with signal followers|&#10003; Any time, by adding a "Diary Entry" to the signal.|
+|Add images to signal|&#10003; Any time, by adding a "Diary Entry" to the signal.|
+|Use Limit orders|&#10003; Entry, stop loss, and target orders.|
+|Use Stop Limit orders|&#10003; Entry and stop loss orders.|
+|Use Trailing stop order|&#10003; By adjusting the stop loss order.|
+|Use Market orders|Disallowed. You can send limit orders that are far enough from the current price to act as effective market orders.|
+|Cancel/modify orders|&#10003; *Any time before the order is filled*<br/>Order cancellations and modifications are passed on to the signal followers.|
 
-## From our dashboard
-
-## From your own code
 
 <hr/>
 
-In this guide, we will look at how to work with paginated responses when querying the Protocol API. By default, all responses limit results to ten. However, you can go as high as 100 by adding a `limit` parameter to your requests. If you are using one of the official Protocol API client libraries, you don't need to worry about pagination, as it's all being taken care of behind the scenes. {{ className: 'lead' }}
-
-When an API response returns a list of objects, no matter the amount, pagination is supported. In paginated responses, objects are nested in a `data` attribute and have a `has_more` attribute that indicates whether you have reached the end of the last page. You can use the `starting_after` and `endding_before` query parameters to browse pages.
-
-## Example using cursors
-
-<Row>
-  <Col>
-
-    In this example, we request the page that starts after the conversation with id `s4WycXedwhQrEFuM`. As a result, we get a list of three conversations and can tell by the `has_more` attribute that we have reached the end of the resultset.
-
-    <Properties>
-      <Property name="starting_after" type="string">
-        The last ID on the page you're currently on when you want to fetch the next page.
-      </Property>
-      <Property name="ending_before" type="string">
-        The first ID on the page you're currently on when you want to fetch the previous page.
-      </Property>
-      <Property name="limit" type="integer">
-        Limit the number of items returned.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col>
-
-    ```bash {{ title: 'Manual pagination using cURL' }}
-    curl -G https://api.protocol.chat/v1/conversations \
-      -H "Authorization: Bearer {token}" \
-      -d starting_after="s4WycXedwhQrEFuM" \
-      -d limit=10
-    ```
-
-    ```json {{ title: 'Paginated response' }}
-    {
-      "has_more": false,
-      "data": [
-        {
-          "id": "WAz8eIbvDR60rouK",
-          // ...
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        },
-        {
-          "id": "fbwYwpi9C2ybt6Yb"
-          // ...
-        }
-      ]
-    }
-    ```
-
-  </Col>
-</Row>

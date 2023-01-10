@@ -185,27 +185,29 @@ function NavigationGroup({ group, className }) {
 
 export const navigation = [
   {
-    title: 'Guides',
+    title: 'Who is it for?',
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'For Traders', href: '/fortraders' },
+      { title: 'For Trading Funds', href: 'fortradingfunds' },
       { title: 'For Signal Creators', href: '/forsignalcreators' },
       { title: 'For Strategists', href: '/forstrategists' },
       { title: 'For Trade Room Leaders', href: '/fortraderoomleaders' },
       { title: 'For Programmers', href: '/forprogrammers' },
       { title: 'For Investors', href: '/forinvestors' },
+      //{ title: 'Styles', href: '/styles' },
     ],
   },
-  {
-    title: 'API',
-    links: [
-      { title: 'Contacts', href: '/contacts' },
-      { title: 'Conversations', href: '/conversations' },
-      { title: 'Messages', href: '/messages' },
-      { title: 'Groups', href: '/groups' },
-      { title: 'Attachments', href: '/attachments' },
-    ],
-  },
+  // {
+  //   title: 'API',
+  //   links: [
+  //     { title: 'Contacts', href: '/contacts' },
+  //     { title: 'Conversations', href: '/conversations' },
+  //     { title: 'Messages', href: '/messages' },
+  //     { title: 'Groups', href: '/groups' },
+  //     { title: 'Attachments', href: '/attachments' },
+  //   ],
+  // },
 ]
 
 export function Navigation(props) {

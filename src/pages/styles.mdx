@@ -1,0 +1,425 @@
+import { Resources } from '@/components/Resources'
+
+export const description =
+  'Learn everything there is to know about the Protocol API and integrate Protocol into your product.'
+
+
+{/* // Use this to override sections normally defined by ## headers
+export const sections = [
+  { title: 'Who is it for?', id: 'guides' },
+  { title: 'Resources', id: 'resources' },
+] */}
+
+<Resources />
+
+<Note>
+  Trade like a boss! Make strategic decisions like a general in the Army. Then let our automated systems take care of the hard work for you.
+</Note>
+
+<div className="not-prose mb-16 mt-6 flex gap-3">
+  <Button href="/quickstart" arrow="right">Quickstart</Button>
+  <Button href="/sdks" variant="outline" children="Explore SDKs" />
+</div>
+
+## Getting started {{ anchor: false }}
+
+To get started, create a new application in your [developer settings](#), then read about how to make requests for the resources you need to access using our HTTP APIs or dedicated client SDKs. When your integration is ready to go live, publish it to our [integrations directory](#) to reach the Protocol community. {{ className: 'lead' }}
+
+<div className="not-prose">
+  <Button
+    href="/sdks"
+    variant="text"
+    arrow="right"
+    children="Get your API key"
+  />
+</div>
+
+
+<Note>
+  Before you can make requests to the Protocol API, you will need to grab your
+  API key from your dashboard. You find it under [Settings &raquo; API](#).
+</Note>
+
+## Choose your client
+
+Before making your first API request, you need to pick which API client you will use. In addition to good ol' cURL HTTP requests, Protocol offers clients for JavaScript, Python, and PHP. In the following example, you can see how to install each client.
+
+<CodeGroup>
+
+```bash {{ title: 'cURL' }}
+# cURL is most likely already installed on your machine
+curl --version
+```
+
+```bash {{ language: 'js' }}
+# Install the Protocol JavaScript SDK
+npm install @example/protocol-api --save
+```
+
+```bash {{ language: 'python' }}
+# Install the Protocol Python SDK
+pip install protocol_api
+```
+
+```bash {{ language: 'php' }}
+# Install the Protocol PHP SDK
+composer require protocol/sdk
+```
+
+```csharp {{ language: 'csharp' }}
+// This should be good c#
+public class Hello {
+  public string H1 { get; } => "good one";
+}
+```
+</CodeGroup>
+
+<div className="not-prose">
+  <Button
+    href="/sdks"
+    variant="text"
+    arrow="right"
+    children="Check out our list of first-party SDKs"
+  />
+</div>
+
+## Making your first API request
+
+After picking your preferred client, you are ready to make your first call to the Protocol API. Below, you can see how to send a GET request to the Conversations endpoint to get a list of all your conversations. In the cURL example, results are limited to ten conversations, the default page length for each client.
+
+<CodeGroup tag="GET" label="/v1/conversations">
+
+```bash {{ title: 'cURL' }}
+curl -G https://api.protocol.chat/v1/conversations \
+  -H "Authorization: Bearer {token}" \
+  -d limit=10
+```
+
+```js
+import ApiClient from '@example/protocol-api'
+
+const client = new ApiClient(token)
+
+await client.conversations.list()
+```
+
+```python
+from protocol_api import ApiClient
+
+client = ApiClient(token)
+
+client.conversations.list()
+```
+
+```php
+$client = new \Protocol\ApiClient($token);
+
+$client->conversations->list();
+```
+
+</CodeGroup>
+
+<div className="not-prose">
+  <Button
+    href="/conversations"
+    variant="text"
+    arrow="right"
+    children="Read the docs for the Conversations endpoint"
+  />
+</div>
+
+## What's next?
+
+Great, you're now set up with an API client and have made your first request to the API. Here are a few links that might be handy as you venture further into the Protocol API:
+
+- [Grab your API key from the Protocol dashboard](#)
+- [Check out the Conversations endpoint](/conversations)
+- [Learn about the different error messages in Protocol](/errors)
+
+In this guide, we will look at how to register and consume webhooks to integrate your app with Protocol. With webhooks, your app can know when something happens in Protocol, such as someone sending a message or adding a contact. {{ className: 'lead' }}
+
+## Registering webhooks
+
+To register a new webhook, you need to have a URL in your app that Protocol can call. You can configure a new webhook from the Protocol dashboard under [API settings](#). Give your webhook a name, pick the [events](#event-types) you want to listen for, and add your URL.
+
+Now, whenever something of interest happens in your app, a webhook is fired off by Protocol. In the next section, we'll look at how to consume webhooks.
+
+## Consuming webhooks
+
+When your app receives a webhook request from Protocol, check the `type` attribute to see what event caused it. The first part of the event type will tell you the payload type, e.g., a conversation, message, etc.
+
+```json {{ title: 'Example webhook payload' }}
+{
+  "id": "a056V7R7NmNRjl70",
+  "type": "conversation.updated",
+  "payload": {
+    "id": "WAz8eIbvDR60rouK"
+    // ...
+  }
+}
+```
+
+In the example above, a conversation was `updated`, and the payload type is a `conversation`.
+
+<div className="not-prose">
+  <Button
+    href="#event-types"
+    variant="text"
+    arrow="right"
+    children="See all event types"
+  />
+</div>
+
+---
+
+## Event types
+
+<Row>
+  <Col>
+
+    <Properties>
+      <Property name="contact.created">
+        A new contact was created.
+      </Property>
+      <Property name="contact.updated">
+        An existing contact was updated.
+      </Property>
+      <Property name="contact.deleted">
+        A contact was successfully deleted.
+      </Property>
+      <Property name="conversation.created">
+        A new conversation was created.
+      </Property>
+      <Property name="conversation.updated">
+        An existing conversation was updated.
+      </Property>
+      <Property name="conversation.deleted">
+        A conversation was successfully deleted.
+      </Property>
+      <Property name="message.created">
+        A new message was created.
+      </Property>
+      <Property name="message.updated">
+        An existing message was updated.
+      </Property>
+      <Property name="message.deleted">
+        A message was successfully deleted.
+      </Property>
+      <Property name="group.created">
+        A new group was created.
+      </Property>
+      <Property name="group.updated">
+        An existing group was updated.
+      </Property>
+      <Property name="group.deleted">
+        A group was successfully deleted.
+      </Property>
+      <Property name="attachment.created">
+        A new attachment was created.
+      </Property>
+      <Property name="attachment.updated">
+        An existing attachment was updated.
+      </Property>
+      <Property name="attachment.deleted">
+        An attachment was successfully deleted.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    ```json {{ 'title': 'Example payload' }}
+    {
+      "id": "a056V7R7NmNRjl70",
+      "type": "message.updated",
+      "payload": {
+        "id": "SIuAFUNKdSYHZF2w",
+        "conversation_id": "xgQQXg3hrtjh7AvZ",
+        "contact": {
+          "id": "WAz8eIbvDR60rouK",
+          "username": "KevinMcCallister",
+          "phone_number": "1-800-759-3000",
+          "avatar_url": "https://assets.protocol.chat/avatars/kevin.jpg",
+          "last_active_at": 705103200,
+          "created_at": 692233200
+        },
+        "message": "I’m traveling with my dad. He’s at a meeting. I hate meetings.",
+        "reactions": [],
+        "attachments": [],
+        "read_at": 705103200,
+        "created_at": 692233200,
+        "updated_at": 692233200
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Security
+
+To know for sure that a webhook was, in fact, sent by Protocol instead of a malicious actor, you can verify the request signature. Each webhook request contains a header named `x-protocol-signature`, and you can verify this signature by using your secret webhook key. The signature is an HMAC hash of the request payload hashed using your secret key. Here is an example of how to verify the signature in your app:
+
+<CodeGroup title="Verifying a request">
+
+```js
+const signature = req.headers['x-protocol-signature']
+const hash = crypto.createHmac('sha256', secret).update(payload).digest('hex')
+
+if (hash === signature) {
+  // Request is verified
+} else {
+  // Request could not be verified
+}
+```
+
+```python
+from flask import request
+import hashlib
+import hmac
+
+signature = request.headers.get("x-protocol-signature")
+hash = hmac.new(bytes(secret, "ascii"), bytes(payload, "ascii"), hashlib.sha256)
+
+if hash.hexdigest() == signature:
+    # Request is verified
+else:
+    # Request could not be verified
+```
+
+```php
+$signature = $request['headers']['x-protocol-signature'];
+$hash = hash_hmac('sha256', $payload, $secret);
+
+if (hash_equals($hash, $signature)) {
+  // Request is verified
+} else {
+  // Request could not be verified
+}
+```
+
+</CodeGroup>
+
+If your generated signature matches the `x-protocol-signature` header, you can be sure that the request was truly coming from Protocol. It's essential to keep your secret webhook key safe — otherwise, you can no longer be sure that a given webhook was sent by Protocol. Don't commit your secret webhook key to GitHub!
+
+In this guide, we will look at how to work with paginated responses when querying the Protocol API. By default, all responses limit results to ten. However, you can go as high as 100 by adding a `limit` parameter to your requests. If you are using one of the official Protocol API client libraries, you don't need to worry about pagination, as it's all being taken care of behind the scenes. {{ className: 'lead' }}
+
+When an API response returns a list of objects, no matter the amount, pagination is supported. In paginated responses, objects are nested in a `data` attribute and have a `has_more` attribute that indicates whether you have reached the end of the last page. You can use the `starting_after` and `endding_before` query parameters to browse pages.
+
+## Example using cursors
+
+<Row>
+  <Col>
+
+    In this example, we request the page that starts after the conversation with id `s4WycXedwhQrEFuM`. As a result, we get a list of three conversations and can tell by the `has_more` attribute that we have reached the end of the resultset.
+
+    <Properties>
+      <Property name="starting_after" type="string">
+        The last ID on the page you're currently on when you want to fetch the next page.
+      </Property>
+      <Property name="ending_before" type="string">
+        The first ID on the page you're currently on when you want to fetch the previous page.
+      </Property>
+      <Property name="limit" type="integer">
+        Limit the number of items returned.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    ```bash {{ title: 'Manual pagination using cURL' }}
+    curl -G https://api.protocol.chat/v1/conversations \
+      -H "Authorization: Bearer {token}" \
+      -d starting_after="s4WycXedwhQrEFuM" \
+      -d limit=10
+    ```
+
+    ```json {{ title: 'Paginated response' }}
+    {
+      "has_more": false,
+      "data": [
+        {
+          "id": "WAz8eIbvDR60rouK",
+          // ...
+        },
+        {
+          "id": "hSIhXBhNe8X1d8Et"
+          // ...
+        },
+        {
+          "id": "fbwYwpi9C2ybt6Yb"
+          // ...
+        }
+      ]
+    }
+    ```
+
+  </Col>
+</Row>
+
+In this guide, we will talk about what happens when something goes wrong while you work with the API. Mistakes happen, and mostly they will be yours, not ours. Let's look at some status codes and error types you might encounter. {{ className: 'lead' }}
+
+You can tell if your request was successful by checking the status code when receiving an API response. If a response comes back unsuccessful, you can use the error type and error message to figure out what has gone wrong and do some rudimentary debugging (before contacting support).
+
+<Note>
+  Before reaching out to support with an error, please be aware that 99% of all
+  reported errors are, in fact, user errors. Therefore, please carefully check
+  your code before contacting Protocol support.
+</Note>
+
+---
+
+## Status codes
+
+Here is a list of the different categories of status codes returned by the Protocol API. Use these to understand if a request was successful.
+
+<Properties>
+  <Property name="2xx">
+    A 2xx status code indicates a successful response.
+  </Property>
+  <Property name="4xx">
+    A 4xx status code indicates a client error — this means it's a _you_
+    problem.
+  </Property>
+  <Property name="5xx">
+    A 5xx status code indicates a server error — you won't be seeing these.
+  </Property>
+</Properties>
+
+---
+
+## Error types
+
+<Row>
+  <Col>
+
+    Whenever a request is unsuccessful, the Protocol API will return an error response with an error type and message. You can use this information to understand better what has gone wrong and how to fix it. Most of the error messages are pretty helpful and actionable.
+
+    Here is a list of the two error types supported by the Protocol API — use these to understand what you have done wrong.
+
+    <Properties>
+      <Property name="api_error">
+        This means that we made an error, which is highly speculative and unlikely.
+      </Property>
+      <Property name="invalid_request">
+        This means that you made an error, which is much more likely.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    ```bash {{ title: "Error response" }}
+    {
+      "type": "api_error",
+      "message": "No way this is happening!?",
+      "documentation_url": "https://protocol.chat/docs/errors/api_error"
+    }
+    ```
+
+  </Col>
+</Row>
+
